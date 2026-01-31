@@ -1,8 +1,12 @@
-*.coverage
+__pycache__
+.coverage
+.DS_Store
+*.egg-info
 *.pyc
 *.sqlite3
-.DS_Store
-/*.egg-info
 /.direnv
 /.envrc
-__pycache__
+/build
+/node_modules
+/package-lock.json
+/package.json
