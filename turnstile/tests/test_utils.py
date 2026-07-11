@@ -10,7 +10,7 @@ class TurnstileUtilsTests(TestCase):
             verify_turnstile_response("valid-token")
 
     @override_settings(TURNSTILE_SITE_KEY="test_site")
-    @override_settings(TURNSTILE_SECRET_KEY="test_secret")    
+    @override_settings(TURNSTILE_SECRET_KEY="test_secret")
     @patch("turnstile.utils.requests.post")
     def test_successful_verification_returns_true(self, mock_post):
         mock_post.return_value.json.return_value = {
