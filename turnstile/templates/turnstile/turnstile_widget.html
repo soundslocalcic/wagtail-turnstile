@@ -2,42 +2,52 @@
 <div id="cf-turnstile-{{ widget.name }}"></div>
 
 <script>
-    turnstile.ready(
-        function () {
-            const container = document.getElementById('cf-turnstile-{{ widget.name }}')
-            const form = container.closest('form')
-            const input = form ? form.querySelector('input[name="{{ widget.name }}"]') : null
-            const disabledInputs = []
+    (
+        function (fn) {
+            if (document.readyState !== 'loading') {
+                fn()
+            } else {
+                document.addEventListener('DOMContentLoaded', fn)
+            }
+        }
+    )(
+        turnstile.ready(
+            function () {
+                const container = document.getElementById('cf-turnstile-{{ widget.name }}')
+                const form = container.closest('form')
+                const input = form ? form.querySelector('input[name="{{ widget.name }}"]') : null
+                const disabledInputs = []
 
-            turnstile.render(
-                container,
-                {
-                    'appearance': '{{ appearance }}',
-                    'sitekey': '{{ site_key|escapejs }}',
-                    'before-interactive-callback': function () {
-                        if (form) {
-                            form.querySelectorAll('button[type="submit"], input[type="submit"]').forEach(
-                                function (btn) {
-                                    if (!btn.disabled) {
-                                        disabledInputs.push(btn)
-                                        btn.disabled = true
+                turnstile.render(
+                    container,
+                    {
+                        'appearance': '{{ appearance }}',
+                        'sitekey': '{{ site_key|escapejs }}',
+                        'before-interactive-callback': function () {
+                            if (form) {
+                                form.querySelectorAll('button[type="submit"], input[type="submit"]').forEach(
+                                    function (btn) {
+                                        if (!btn.disabled) {
+                                            disabledInputs.push(btn)
+                                            btn.disabled = true
+                                        }
                                     }
-                                }
-                            )
-                        }
-                    },
-                    'after-interactive-callback': function () {
-                        while (disabledInputs.length) {
-                            disabledInputs.pop().disabled = false
-                        }
-                    },
-                    'callback': function (token) {
-                        if (input) {
-                            input.value = token
+                                )
+                            }
+                        },
+                        'after-interactive-callback': function () {
+                            while (disabledInputs.length) {
+                                disabledInputs.pop().disabled = false
+                            }
+                        },
+                        'callback': function (token) {
+                            if (input) {
+                                input.value = token
+                            }
                         }
                     }
-                }
-            )
-        }
+                )
+            }
+        )
     )
 </script>
