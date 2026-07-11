@@ -34,6 +34,12 @@ setup(
         ]
     ),
     include_package_data=True,
+    package_data={
+        "turnstile": [
+            "static/**/*",
+            "templates/**/*"
+        ]
+    },
     license="MIT",
     classifiers=[
         "Development Status :: 3 - Alpha",
@@ -46,12 +52,12 @@ setup(
         "Programming Language :: Python :: 3",
         "Programming Language :: Python :: 3.8",
         "Topic :: Internet :: WWW/HTTP",
-        "Topic :: Software Development :: Libraries :: Python Modules",
+        "Topic :: Software Development :: Libraries :: Python Modules"
     ],
     install_requires=[
         "Django>=3.2",
         "wagtail>=3.0",
-        "requests>=2.0",
+        "requests>=2.0"
     ],
     python_requires=">=3.8"
 )

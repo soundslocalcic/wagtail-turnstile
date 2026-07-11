@@ -14,4 +14,6 @@ class TurnstileWidgetTests(TestCase):
     def test_widget_renders_correct_html(self):
         widget = TurnstileWidget()
         html = widget.render("turnstile", None)
-        self.assertIn("turnstile.ready", html)
+        self.assertIn("data-wagtail-turnstile-input", html)
+        self.assertIn("data-wagtail-turnstile-appearance", html)
+        self.assertIn("data-wagtail-turnstile-site-key", html)
