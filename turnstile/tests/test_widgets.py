@@ -14,5 +14,4 @@ class TurnstileWidgetTests(TestCase):
     def test_widget_renders_correct_html(self):
         widget = TurnstileWidget()
         html = widget.render("turnstile", None)
-        self.assertIn("cf-turnstile", html)
-        self.assertIn("turnstile/v0/api.js", html)
+        self.assertIn("turnstile.ready", html)
