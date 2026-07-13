@@ -57,6 +57,20 @@
                 )
             }
 
+            if (typeof (window.wagtail) === 'undefined' || typeof (window.wagtail.turnstile) === 'undefined') {
+                window.wagtail = {}
+            }
+
+            window.wagtail.turnstile = {
+                init: load,
+                destroy: function (container) {
+                    const widgetId = container.getAttribute("data-wagtail-turnstile-widget-id")
+                    if (widgetId) {
+                        turnstile.remove(widgetId)
+                    }
+                }
+            }
+
             document.querySelectorAll("[data-wagtail-turnstile-input]").forEach(load)
         }
     )
